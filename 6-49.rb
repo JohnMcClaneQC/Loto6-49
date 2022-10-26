@@ -4,7 +4,7 @@ begin
 
   #pour clear le terminal
   print "\033[2J\033[H"
-  
+
   #cette classe à été copier du site https://cbabhusal.wordpress.com/2015/10/02/ruby-printing-colored-formatted-character-in-ruby-colorize/
   class String
     def black; "\e[30m#{self}\e[0m" end
@@ -117,7 +117,111 @@ begin
   puts "Combinaison gagnante:".bg_cyan.gray.bold.italic.underline
   afficher_combinaison(gagnant)
   puts "\n"
+  
+  #test
+  #ici p-e mettre juse en dessous de la ligne de la methode calculer_gagnant
+  
 
+  def calculer_gagnant(gagnant, list_combi)
+    list_gagnants = Array.new
+    19.times do |k|
+      list_gagnants.append(0)
+    end
+    list_gagnants[18] = list_combi.count
+    
+    list_combi.each do |j|
+
+      match = 0
+      bonus = false
+      gagnant_Prix = 0
+      perdant_Prix = 0
+      for i in 0..gagnant[0].count - 1 do
+        for h in 0..gagnant[0].count - 1 do
+          if gagnant[0][i] == j[h]
+            if i == gagnant[0].count - 1
+              list_gagnants[i] += 1
+              bonus = true
+            else 
+              list_gagnants[i] += 1
+              match += 1
+            end  
+          end 
+        end
+      end
+      
+      if match == 0
+        list_gagnants[7] += 1
+        perdant_Prix += 1
+      elsif match == 1
+        list_gagnants[8] += 1
+        perdant_Prix += 1  
+      elsif match == 2
+        if bonus
+          list_gagnants[9] += 1
+          gagnant_Prix += 1
+        else
+          list_gagnants[10] += 1
+          gagnant_Prix +=1 
+        end 
+      elsif match == 3
+        if bonus 
+          list_gagnants[11] += 1
+          gagnant_Prix +=1
+        else
+          list_gagnants[12] += 1
+          gagnant_Prix +=1  
+        end
+      elsif match == 4
+        if bonus 
+          list_gagnants[13] += 1
+          gagnant_Prix +=1
+        else
+          list_gagnants[14] += 1
+          gagnant_Prix +=1  
+        end  
+      elsif match == 5
+        if bonus 
+          list_gagnants[15] += 1
+          gagnant_Prix +=1
+        else
+          list_gagnants[16] += 1
+          gagnant_Prix +=1  
+        end 
+      elsif match == 6
+        list_gagnants[17] += 1
+        gagnant_Prix +=1  
+      end  
+    end 
+    return list_gagnants
+  end
+
+  
+
+  liste_Gagnants = calculer_gagnant(gagnant, generateur_combinaison)
+  
+  def afficher_resultat(liste_Gagnants)
+    puts "Le premier nombre est sortit : #{liste_Gagnants[0]} ".bg_brown
+    puts "Le deuxième nombre est sortit : #{liste_Gagnants[1]} ".bg_brown
+    puts "Le troisième nombre est sortit : #{liste_Gagnants[2]} ".bg_brown
+    puts "Le quatrième nombre est sortit : #{liste_Gagnants[3]} ".bg_brown
+    puts "Le cinquième nombre est sortit : #{liste_Gagnants[4]} ".bg_brown
+    puts "Le sixième nombre est sortit : #{liste_Gagnants[5]} ".bg_brown
+    puts "Le complémentaire est sortit : #{liste_Gagnants[6]} ".bg_brown
+    puts "Billet avec 0/6 : #{liste_Gagnants[7]} ".bg_brown
+    puts "Billet avec 1/6 : #{liste_Gagnants[8]} ".bg_brown
+    puts "Billet avec 2/6 : #{liste_Gagnants[9]} ".bg_brown
+    puts "Billet avec 2/6 + comp : #{liste_Gagnants[10]} ".bg_brown
+    puts "Billet avec 3/6 : #{liste_Gagnants[11]} ".bg_brown
+    puts "Billet avec 3/6 + comp : #{liste_Gagnants[12]} ".bg_brown
+    puts "Billet avec 4/6 : #{liste_Gagnants[13]} ".bg_brown
+    puts "Billet avec 4/6 + comp : #{liste_Gagnants[14]} ".bg_brown
+    puts "Billet avec 5/6 : #{liste_Gagnants[15]} ".bg_brown
+    puts "Billet avec 5/6 + comp : #{liste_Gagnants[16]} ".bg_brown
+    puts "Billet avec 6/6 : #{liste_Gagnants[17]} ".bg_brown
+  end 
+
+
+  afficher_resultat(liste_Gagnants)
 
   def recommencer()
     loop do
@@ -134,4 +238,5 @@ begin
   reponse = recommencer()
 
 end while reponse == 'O'
+
 
