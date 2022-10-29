@@ -1,5 +1,8 @@
+#Programme 6-49
+
 #main
 
+#Boucle pour recommencer le programme
 begin
 
   #pour clear le terminal
@@ -38,7 +41,6 @@ begin
   def nbr_combinaison()
     loop do
       puts "Entrez un nombre de combinaison: ".magenta
-      #nb_combi = gets.chomp.to_i
       nb_combi = Integer(gets) rescue false
       if nb_combi && nb_combi.between?(1,200)
         return nb_combi
@@ -54,6 +56,7 @@ begin
   nb_combi = nbr_combinaison()
 
   #autre essai
+  #nb_combi = gets.chomp.to_i
   #while nb_combi !=~ /^-?[0-9]+$/
     #puts "Entrez un nombre de combinaison "
     #nb_combi = gets.chomp
@@ -65,16 +68,17 @@ begin
     t = 0
     nombre_random = Random.new
     list_combi = Array.new
+
     nb_combi.times do |i|
-      #nbr_cpmbi.each do |i|
-      #for i in 0..nb_combi do
+
       list = Array.new
       #comme faire un for j in 0..7
       7.times do |j|
-        #test boucles
+        #ici utilisé cette boucle car il fallait j'entre au moins une fois
         begin
           t = nombre_random.rand(1..49)
         end while list.index(t) != nil
+        #boucle que j'ai essayé
         #loop do
         
           #break if list.index(t) != nil
@@ -85,7 +89,7 @@ begin
         list.append(t)
       end
       list = list.sort
-      #list = list.uniq
+      #list = list.uniq   petit probleme ici, ça efface les doublons mais ne les remplaces pas
       list_combi.append(list)
     end
     return list_combi
@@ -117,11 +121,8 @@ begin
   puts "Combinaison gagnante:".bg_cyan.gray.bold.italic.underline
   afficher_combinaison(gagnant)
   puts "\n"
-  
-  #test
-  #ici p-e mettre juse en dessous de la ligne de la methode calculer_gagnant
-  
 
+  #Fonction pour calculer les statistiques pour les combinaisons gagnantes
   def calculer_gagnant(gagnant, list_combi)
     list_gagnants = Array.new
     19.times do |k|
@@ -148,7 +149,7 @@ begin
           end 
         end
       end
-      
+      #ici j'incrémente de 1 le nouveau tableau à la position indiqué
       if match == 0
         list_gagnants[7] += 1
         perdant_Prix += 1
@@ -199,7 +200,9 @@ begin
 
   liste_Gagnants = calculer_gagnant(gagnant, generateur_combinaison)
   
+  #Procedure pour afficher les statistiques
   def afficher_resultat(liste_Gagnants)
+    puts "Les statistiques: ".blue.bold.italic.underline
     puts "Le premier nombre est sortit : #{liste_Gagnants[0]} ".bg_brown
     puts "Le deuxième nombre est sortit : #{liste_Gagnants[1]} ".bg_brown
     puts "Le troisième nombre est sortit : #{liste_Gagnants[2]} ".bg_brown
@@ -207,27 +210,30 @@ begin
     puts "Le cinquième nombre est sortit : #{liste_Gagnants[4]} ".bg_brown
     puts "Le sixième nombre est sortit : #{liste_Gagnants[5]} ".bg_brown
     puts "Le complémentaire est sortit : #{liste_Gagnants[6]} ".bg_brown
-    puts "Billet avec 0/6 : #{liste_Gagnants[7]} ".bg_brown
-    puts "Billet avec 1/6 : #{liste_Gagnants[8]} ".bg_brown
-    puts "Billet avec 2/6 : #{liste_Gagnants[9]} ".bg_brown
-    puts "Billet avec 2/6 + comp : #{liste_Gagnants[10]} ".bg_brown
-    puts "Billet avec 3/6 : #{liste_Gagnants[11]} ".bg_brown
-    puts "Billet avec 3/6 + comp : #{liste_Gagnants[12]} ".bg_brown
-    puts "Billet avec 4/6 : #{liste_Gagnants[13]} ".bg_brown
-    puts "Billet avec 4/6 + comp : #{liste_Gagnants[14]} ".bg_brown
-    puts "Billet avec 5/6 : #{liste_Gagnants[15]} ".bg_brown
-    puts "Billet avec 5/6 + comp : #{liste_Gagnants[16]} ".bg_brown
-    puts "Billet avec 6/6 : #{liste_Gagnants[17]} ".bg_brown
+    puts "\n"
+    puts "Les Gagnants: ".blue.bold.italic.underline
+    puts "Combinaison avec 0/6 : #{liste_Gagnants[7]} ".bg_brown
+    puts "Combinaison avec 1/6 : #{liste_Gagnants[8]} ".bg_brown
+    puts "Combinaison avec 2/6 : #{liste_Gagnants[9]} ".bg_brown
+    puts "Combinaison avec 2/6 + comp : #{liste_Gagnants[10]} ".bg_brown
+    puts "Combinaison avec 3/6 : #{liste_Gagnants[11]} ".bg_brown
+    puts "Combinaison avec 3/6 + comp : #{liste_Gagnants[12]} ".bg_brown
+    puts "Combinaison avec 4/6 : #{liste_Gagnants[13]} ".bg_brown
+    puts "Combinaison avec 4/6 + comp : #{liste_Gagnants[14]} ".bg_brown
+    puts "Combinaison avec 5/6 : #{liste_Gagnants[15]} ".bg_brown
+    puts "Combinaison avec 5/6 + comp : #{liste_Gagnants[16]} ".bg_brown
+    puts "Combinaison avec 6/6 : #{liste_Gagnants[17]} ".bg_brown
   end 
 
 
   afficher_resultat(liste_Gagnants)
+  puts "\n"
 
+  #Methode pour recommencer le programme
   def recommencer()
     loop do
       puts "Voulez-vous refaire un tirage (O/N) ? ".red
       rep = gets.chomp.to_s
-      #rep = String(gets) rescue false
       rep = rep.upcase
       if rep && (rep == "O" || rep == "N")
         return rep
