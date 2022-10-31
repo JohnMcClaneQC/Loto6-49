@@ -44,8 +44,6 @@ begin
       nb_combi = Integer(gets) rescue false
       if nb_combi && nb_combi.between?(1,200)
         return nb_combi
-      #if nb_combi = ~ /^-?[0-9]+$/
-        #return nb_combi
       else
         puts "Vous devez entrer un chiffre".red
         puts "\n"
@@ -55,13 +53,7 @@ begin
 
   nb_combi = nbr_combinaison()
 
-  #autre essai
-  #nb_combi = gets.chomp.to_i
-  #while nb_combi !=~ /^-?[0-9]+$/
-    #puts "Entrez un nombre de combinaison "
-    #nb_combi = gets.chomp
-  #end
-  #return nb_combi
+
 
   #Fonction pour fabriquer les combinaison et on s'assure d'avoir aucun doublons
   def generateur_combi(nb_combi)
@@ -89,7 +81,7 @@ begin
         list.append(t)
       end
       list = list.sort
-      #list = list.uniq   petit probleme ici, ça efface les doublons mais ne les remplaces pas
+
       list_combi.append(list)
     end
     return list_combi
@@ -136,6 +128,7 @@ begin
       bonus = false
       gagnant_Prix = 0
       perdant_Prix = 0
+      #pour savoir si les chiffre se retrouve dans la liste 
       for i in 0..gagnant[0].count - 1 do
         for h in 0..gagnant[0].count - 1 do
           if gagnant[0][i] == j[h]
@@ -200,6 +193,7 @@ begin
 
   liste_Gagnants = calculer_gagnant(gagnant, generateur_combinaison)
   
+
   #Procedure pour afficher les statistiques
   def afficher_resultat(liste_Gagnants)
     puts "Les statistiques: ".blue.bold.italic.underline
@@ -228,6 +222,7 @@ begin
 
   afficher_resultat(liste_Gagnants)
   puts "\n"
+
 
   #Methode pour recommencer le programme
   def recommencer()
